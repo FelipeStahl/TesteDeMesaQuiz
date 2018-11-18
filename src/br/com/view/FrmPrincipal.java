@@ -5,6 +5,8 @@
  */
 package br.com.view;
 
+import br.com.dao.impl.UsuarioDaoImpl;
+
 /**
  *
  * @author Felipe-Sistema
@@ -19,7 +21,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
         frmPrincipal = this;
         pnlLogin pnl = new pnlLogin();
         this.setContentPane(pnl);
-        this.setVisible(true);
+        this.setVisible(true);       
     }
 
     /**

@@ -5,6 +5,7 @@
  */
 package br.com.view;
 
+import br.com.manter.manterUsuarioLogado;
 import java.awt.Graphics;
 import java.awt.Image;
 import javax.swing.ImageIcon;
@@ -20,10 +21,16 @@ public class pnlJavaTeste extends javax.swing.JPanel {
      */
     public pnlJavaTeste() {
         initComponents();
+        lbUsuario.setText(manterUsuarioLogado.getUsuario().getNome());
+        lbPontos.setText(manterUsuarioLogado.getUsuario().getPontos().toString());
+        
         testeI++; //teste
         addBotao(testeI, "Enviar objeto pergunta e fazer tratamento no Panel de Pergunta", false); //teste
     }
 
+    private void addPerguntas(){
+        
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always

@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package br.com.view;
+import br.com.manter.manterUsuarioLogado;
 import java.awt.Graphics;
 import java.awt.Image;
 import javax.swing.ImageIcon;
@@ -18,6 +19,8 @@ public class pnlTestes extends javax.swing.JPanel {
      */
     public pnlTestes() {
         initComponents();
+        lbUsuario.setText(manterUsuarioLogado.getUsuario().getNome());
+        lbPontos.setText(manterUsuarioLogado.getUsuario().getPontos().toString());
     }
 
     /**

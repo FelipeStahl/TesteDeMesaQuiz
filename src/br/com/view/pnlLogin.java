@@ -5,9 +5,13 @@
  */
 package br.com.view;
 
+import br.com.dao.impl.UsuarioDaoImpl;
+import br.com.entidade.Usuario;
+import br.com.manter.manterUsuarioLogado;
 import java.awt.Graphics;
 import java.awt.Image;
 import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -46,9 +50,9 @@ public class pnlLogin extends javax.swing.JPanel {
         jPanel2 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         txLogin = new javax.swing.JTextField();
+        txSenha = new javax.swing.JPasswordField();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        txSenha = new javax.swing.JTextField();
         btEntrar = new javax.swing.JButton();
         btCadastrar = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
@@ -81,18 +85,14 @@ public class pnlLogin extends javax.swing.JPanel {
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/imagem/usuario.png"))); // NOI18N
         jPanel2.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 40, -1, -1));
-
-        txLogin.setText("txLogin");
         jPanel2.add(txLogin, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 60, 260, -1));
+        jPanel2.add(txSenha, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 110, 260, -1));
 
         jLabel4.setText("Login");
         jPanel2.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 40, -1, -1));
 
         jLabel5.setText("Senha");
         jPanel2.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 90, -1, -1));
-
-        txSenha.setText("txSenha");
-        jPanel2.add(txSenha, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 110, 260, -1));
 
         btEntrar.setText("Entrar");
         btEntrar.addActionListener(new java.awt.event.ActionListener() {
@@ -162,11 +162,38 @@ public class pnlLogin extends javax.swing.JPanel {
 
     private void btEntrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btEntrarActionPerformed
         // TODO add your handling code here:
-        pnlTestes pnl = new pnlTestes();
-        FrmPrincipal.frmPrincipal.setContentPane(pnl);
-        FrmPrincipal.frmPrincipal.setVisible(true);
+        Usuario usuario;
+        String passText = new String(txSenha.getPassword());
+        if (txLogin.getText().equals("") || passText.equals("")) {
+            criarAviso("Usuario e/ou senha incorretos.");
+            this.txSenha.setText("");
+            this.repaint();
+            this.revalidate();
+            return;
+        }
+        UsuarioDaoImpl usuariodao = new UsuarioDaoImpl();
+        usuario = usuariodao.validarLogin(this.txLogin.getText(), passText);
+        if (usuario != null) {
+            manterUsuarioLogado.setUsuario(usuario);
+            pnlTestes pnl = new pnlTestes();
+            FrmPrincipal.frmPrincipal.setContentPane(pnl);
+            FrmPrincipal.frmPrincipal.setVisible(true);
+        } else {
+            criarAviso("Usuario e/ou senha incorretos.");
+            this.txSenha.setText("");
+            this.repaint();
+            this.revalidate();
+        }
     }//GEN-LAST:event_btEntrarActionPerformed
 
+    private void criarAviso(String aviso) {
+        javax.swing.JLabel lbAviso;
+        lbAviso = new javax.swing.JLabel();
+        lbAviso.setFont(new java.awt.Font("Dialog", 2, 12)); // NOI18N
+        lbAviso.setForeground(new java.awt.Color(0, 0, 0));
+        lbAviso.setText(aviso);
+        jPanel2.add(lbAviso, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 30, -1, 30));
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btCadastrar;
@@ -188,6 +215,6 @@ public class pnlLogin extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JLabel lbLogo;
     private javax.swing.JTextField txLogin;
-    private javax.swing.JTextField txSenha;
+    private javax.swing.JPasswordField txSenha;
     // End of variables declaration//GEN-END:variables
 }

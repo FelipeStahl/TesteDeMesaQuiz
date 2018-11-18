@@ -5,9 +5,11 @@
  */
 package br.com.view;
 
+import br.com.manter.manterUsuarioLogado;
 import java.awt.Graphics;
 import java.awt.Image;
 import javax.swing.ImageIcon;
+
 /**
  *
  * @author Felipe-Sistema
@@ -19,7 +21,12 @@ public class pnlJavaPergunta extends javax.swing.JPanel {
      */
     public pnlJavaPergunta(String pergunta) {
         initComponents();
+        
+        lbUsuario.setText(manterUsuarioLogado.getUsuario().getNome());
+        lbPontos.setText(manterUsuarioLogado.getUsuario().getPontos().toString());
+        
         jEditorPane1.setText(pergunta);
+
     }
 
     /**
@@ -102,7 +109,7 @@ public class pnlJavaPergunta extends javax.swing.JPanel {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addGap(42, 42, 42)
                 .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 218, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 240, Short.MAX_VALUE)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 288, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
@@ -240,7 +247,7 @@ public class pnlJavaPergunta extends javax.swing.JPanel {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(lbPergunta)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 123, Short.MAX_VALUE)))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 140, Short.MAX_VALUE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
