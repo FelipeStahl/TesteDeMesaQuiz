@@ -55,11 +55,11 @@ public class pnlLogin extends javax.swing.JPanel {
         jLabel1 = new javax.swing.JLabel();
         filler3 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 32767));
         filler2 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 0), new java.awt.Dimension(32767, 0));
-        label1 = new java.awt.Label();
         filler4 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 32767));
         filler1 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 10), new java.awt.Dimension(0, 10), new java.awt.Dimension(32767, 10));
         filler5 = new javax.swing.Box.Filler(new java.awt.Dimension(20, 0), new java.awt.Dimension(20, 0), new java.awt.Dimension(20, 32767));
         filler6 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 20), new java.awt.Dimension(0, 20), new java.awt.Dimension(32767, 20));
+        jLabel6 = new javax.swing.JLabel();
 
         setLayout(new javax.swing.OverlayLayout(this));
 
@@ -132,16 +132,6 @@ public class pnlLogin extends javax.swing.JPanel {
         gridBagConstraints.weightx = 0.1;
         gridBagConstraints.weighty = 0.1;
         jPanel1.add(filler2, gridBagConstraints);
-
-        label1.setBackground(new java.awt.Color(0, 35, 104));
-        label1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        label1.setForeground(new java.awt.Color(255, 255, 255));
-        label1.setText("Desenvolvido pelos alunos: Érick com Acento, Felipe Staoijsdfojkmdsf, Robson Polegar.");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 8;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.LAST_LINE_END;
-        jPanel1.add(label1, gridBagConstraints);
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.weighty = 0.1;
         jPanel1.add(filler4, gridBagConstraints);
@@ -157,6 +147,15 @@ public class pnlLogin extends javax.swing.JPanel {
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 9;
         jPanel1.add(filler6, gridBagConstraints);
+
+        jLabel6.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel6.setText("Desenvolvido por: Érick Miguel Costa, Felipe Stahlhofer e Robson Pfleger");
+        jLabel6.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 8;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_END;
+        jPanel1.add(jLabel6, gridBagConstraints);
 
         add(jPanel1);
     }// </editor-fold>//GEN-END:initComponents
@@ -184,9 +183,9 @@ public class pnlLogin extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private java.awt.Label label1;
     private javax.swing.JLabel lbLogo;
     private javax.swing.JTextField txLogin;
     private javax.swing.JTextField txSenha;
