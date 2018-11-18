@@ -8,7 +8,7 @@ package br.com.view;
 import java.awt.Graphics;
 import java.awt.Image;
 import javax.swing.ImageIcon;
-import java.awt.Toolkit;
+
 /**
  *
  * @author Felipe-Sistema
@@ -65,7 +65,7 @@ public class pnlLogin extends javax.swing.JPanel {
         jPanel1.setLayout(new java.awt.GridBagLayout());
 
         lbLogo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lbLogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/imagem/teste de mesa logo.png"))); // NOI18N
+        lbLogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/teste de mesa logo.png"))); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 1;
@@ -90,6 +90,11 @@ public class pnlLogin extends javax.swing.JPanel {
         jPanel2.add(txSenha, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 110, 260, -1));
 
         btEntrar.setText("Entrar");
+        btEntrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btEntrarActionPerformed(evt);
+            }
+        });
         jPanel2.add(btEntrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 150, 90, -1));
 
         btCadastrar.setText("Cadastrar");
@@ -150,6 +155,11 @@ public class pnlLogin extends javax.swing.JPanel {
 
         add(jPanel1);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btEntrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btEntrarActionPerformed
+        // TODO add your handling code here:
+
+    }//GEN-LAST:event_btEntrarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
