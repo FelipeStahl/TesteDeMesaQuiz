@@ -21,5 +21,7 @@ public interface BaseDao {
     
     Object pesquisarPorId(Integer id) throws  SQLException;
     
+    List pesquisar(String pesquisa) throws  SQLException;
+    
     List listarTodos() throws  SQLException;
 }

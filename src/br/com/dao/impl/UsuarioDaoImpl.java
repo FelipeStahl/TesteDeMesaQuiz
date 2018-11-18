@@ -78,4 +78,9 @@ public class UsuarioDaoImpl implements UsuarioDao {
         return null;
     }
 
+    @Override
+    public List pesquisar(String pesquisa) throws SQLException {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
 }

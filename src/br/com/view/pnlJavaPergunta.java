@@ -5,9 +5,17 @@
  */
 package br.com.view;
 
+import br.com.dao.impl.Usuario_perguntaDaoImpl;
+import br.com.entidade.Alternativa;
+import br.com.entidade.Pergunta;
+import br.com.entidade.Usuario_pergunta;
+import br.com.manter.manterTeste;
 import br.com.manter.manterUsuarioLogado;
 import java.awt.Graphics;
 import java.awt.Image;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 
 /**
@@ -16,17 +24,99 @@ import javax.swing.ImageIcon;
  */
 public class pnlJavaPergunta extends javax.swing.JPanel {
 
+    private Pergunta perguntaAtual;
+    private javax.swing.JButton btCorreto;
+
     /**
      * Creates new form pnlJavaPergunta
      */
-    public pnlJavaPergunta(String pergunta) {
+    public pnlJavaPergunta(Pergunta pergunta) {
         initComponents();
-        
+        perguntaAtual = pergunta;
         lbUsuario.setText(manterUsuarioLogado.getUsuario().getNome());
         lbPontos.setText(manterUsuarioLogado.getUsuario().getPontos().toString());
-        
-        jEditorPane1.setText(pergunta);
 
+        jEditorPane1.setText(pergunta.getDescricao());
+        Integer numAlternativa = 1;
+        for (Alternativa alternativa : pergunta.getAlternativas()) {
+
+            switch (numAlternativa) {
+                case 1:
+                    if (alternativa.getVerdadeiro()) {
+                        btCorreto = btA;
+                    }
+                    btA.setText(alternativa.getDescricao());
+                    btA.addActionListener(new java.awt.event.ActionListener() {
+                        public void actionPerformed(java.awt.event.ActionEvent evt) {
+                            resposta(alternativa.getVerdadeiro(), btA);
+                        }
+                    });
+                    break;
+                case 2:
+                    if (alternativa.getVerdadeiro()) {
+                        btCorreto = btB;
+                    }
+                    btB.setText(alternativa.getDescricao());
+                    btB.addActionListener(new java.awt.event.ActionListener() {
+                        public void actionPerformed(java.awt.event.ActionEvent evt) {
+                            resposta(alternativa.getVerdadeiro(), btB);
+                        }
+                    });
+                    break;
+                case 3:
+                    if (alternativa.getVerdadeiro()) {
+                        btCorreto = btC;
+                    }
+                    btC.setText(alternativa.getDescricao());
+                    btC.addActionListener(new java.awt.event.ActionListener() {
+                        public void actionPerformed(java.awt.event.ActionEvent evt) {
+                            resposta(alternativa.getVerdadeiro(), btC);
+                        }
+                    });
+                    break;
+                case 4:
+                    if (alternativa.getVerdadeiro()) {
+                        btCorreto = btD;
+                    }
+                    btD.setText(alternativa.getDescricao());
+                    btD.addActionListener(new java.awt.event.ActionListener() {
+                        public void actionPerformed(java.awt.event.ActionEvent evt) {
+                            resposta(alternativa.getVerdadeiro(), btD);
+                        }
+                    });
+                    break;
+            }
+            numAlternativa++;
+        }
+        if(pergunta.getUsuario_pergunta() != null){
+            lbProximo.setEnabled(true);
+            btCorreto.setBackground(new java.awt.Color(51, 204, 0));
+        }
+
+    }
+
+    private void resposta(Boolean acertou, javax.swing.JButton botao) {
+        if (perguntaAtual.getUsuario_pergunta() == null) {
+            Usuario_perguntaDaoImpl usuario_perguntaDao = new Usuario_perguntaDaoImpl();
+            Usuario_pergunta usuario_pergunta = new Usuario_pergunta();
+            usuario_pergunta.setPergunta(perguntaAtual);
+            usuario_pergunta.setUsuario(manterUsuarioLogado.getUsuario());
+            usuario_pergunta.setCorreto(acertou);
+            try {
+                usuario_perguntaDao.salvar(usuario_pergunta);
+            } catch (SQLException ex) {
+                Logger.getLogger(pnlJavaTeste.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+            if (acertou) {
+                botao.setBackground(new java.awt.Color(51, 204, 0));
+                Integer pontos = manterUsuarioLogado.getUsuario().getPontos() + 10;
+                manterUsuarioLogado.getUsuario().setPontos(pontos);
+            } else {
+                botao.setBackground(new java.awt.Color(153, 0, 0));
+                btCorreto.setBackground(new java.awt.Color(51, 204, 0));
+            }
+        }
     }
 
     /**
@@ -72,6 +162,7 @@ public class pnlJavaPergunta extends javax.swing.JPanel {
         btB = new javax.swing.JButton();
         btC = new javax.swing.JButton();
         btD = new javax.swing.JButton();
+        lbProximo = new javax.swing.JLabel();
 
         jPanel1.setBackground(new java.awt.Color(0, 0, 102));
 
@@ -154,7 +245,7 @@ public class pnlJavaPergunta extends javax.swing.JPanel {
                 .addContainerGap(10, Short.MAX_VALUE))
         );
 
-        lbPergunta.setText("Pergunta");
+        lbPergunta.setText("Teste:");
 
         jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/imagem/retornar.png"))); // NOI18N
         jLabel5.setText("Retornar ");
@@ -213,6 +304,18 @@ public class pnlJavaPergunta extends javax.swing.JPanel {
         gridBagConstraints.weighty = 0.1;
         jPanel4.add(btD, gridBagConstraints);
 
+        lbProximo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/imagem/proximo.png"))); // NOI18N
+        lbProximo.setText("Próximo");
+        lbProximo.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        lbProximo.setEnabled(false);
+        lbProximo.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
+        lbProximo.setInheritsPopupMenu(false);
+        lbProximo.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lbProximoMouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -225,17 +328,19 @@ public class pnlJavaPergunta extends javax.swing.JPanel {
                 .addGap(23, 23, 23)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jScrollPane1))
-                        .addGap(29, 29, 29))
-                    .addGroup(layout.createSequentialGroup()
                         .addComponent(lbPergunta)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jPanel4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING))
+                        .addGap(29, 29, 29))))
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel5)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(lbProximo)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -251,7 +356,9 @@ public class pnlJavaPergunta extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel5)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel5)
+                    .addComponent(lbProximo))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
@@ -269,6 +376,19 @@ public class pnlJavaPergunta extends javax.swing.JPanel {
         FrmPrincipal.frmPrincipal.setContentPane(pnl);
         FrmPrincipal.frmPrincipal.setVisible(true);
     }//GEN-LAST:event_jLabel5MouseClicked
+
+    private void lbProximoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbProximoMouseClicked
+        Integer num = manterTeste.getNumPerguntaAtual() + 1;
+        if (manterTeste.getNumPerguntaTotal() > num) {
+            pnlJavaPergunta pnl = new pnlJavaPergunta(manterTeste.getTeste().getPerguntas().get(num));
+            manterTeste.setNumPerguntaAtual(num);
+            manterTeste.setNumPerguntaAtual(PROPERTIES);
+            FrmPrincipal.frmPrincipal.setContentPane(pnl);
+            FrmPrincipal.frmPrincipal.setVisible(true);
+        } else {
+            lbProximo.setEnabled(false);
+        }
+    }//GEN-LAST:event_lbProximoMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -289,6 +409,7 @@ public class pnlJavaPergunta extends javax.swing.JPanel {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lbPergunta;
     private javax.swing.JLabel lbPontos;
+    private javax.swing.JLabel lbProximo;
     private javax.swing.JLabel lbSair;
     private javax.swing.JLabel lbUsuario;
     // End of variables declaration//GEN-END:variables

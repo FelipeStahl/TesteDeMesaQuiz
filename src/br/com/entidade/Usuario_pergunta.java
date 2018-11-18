@@ -16,8 +16,8 @@ public class Usuario_pergunta {
     private Integer id;
     private Boolean correto;
     private Date dataResposta;
-    private List<Usuario> usuarios;
-    private List<Pergunta> pergunta;
+    private Usuario usuario;
+    private Pergunta pergunta;
 
     public Integer getId() {
         return id;
@@ -43,19 +43,19 @@ public class Usuario_pergunta {
         this.dataResposta = dataResposta;
     }
 
-    public List<Usuario> getUsuarios() {
-        return usuarios;
+    public Usuario getUsuario() {
+        return usuario;
     }
 
-    public void setUsuarios(List<Usuario> usuarios) {
-        this.usuarios = usuarios;
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
     }
 
-    public List<Pergunta> getPergunta() {
+    public Pergunta getPergunta() {
         return pergunta;
     }
 
-    public void setPergunta(List<Pergunta> pergunta) {
+    public void setPergunta(Pergunta pergunta) {
         this.pergunta = pergunta;
     }
     

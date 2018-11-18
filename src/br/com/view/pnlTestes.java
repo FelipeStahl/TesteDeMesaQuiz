@@ -4,15 +4,28 @@
  * and open the template in the editor.
  */
 package br.com.view;
+
+import br.com.dao.impl.TesteDaoImpl;
+import br.com.entidade.Alternativa;
+import br.com.entidade.Pergunta;
+import br.com.entidade.Teste;
+import br.com.manter.manterTeste;
 import br.com.manter.manterUsuarioLogado;
 import java.awt.Graphics;
 import java.awt.Image;
+import java.sql.SQLException;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.ImageIcon;
+
 /**
  *
  * @author Felipe-Sistema
  */
 public class pnlTestes extends javax.swing.JPanel {
+
+    private List<Teste> testes;
 
     /**
      * Creates new form pnlTestes
@@ -21,6 +34,42 @@ public class pnlTestes extends javax.swing.JPanel {
         initComponents();
         lbUsuario.setText(manterUsuarioLogado.getUsuario().getNome());
         lbPontos.setText(manterUsuarioLogado.getUsuario().getPontos().toString());
+
+        TesteDaoImpl testeDao = new TesteDaoImpl();
+
+        try {
+            testes = testeDao.listarTodos();
+            for (Teste teste : testes) {
+                if (teste.getNome().toLowerCase().contains("java")) {
+                    this.btJava.setEnabled(true);
+                    btJava.addActionListener(new java.awt.event.ActionListener() {
+                        public void actionPerformed(java.awt.event.ActionEvent evt) {
+                            manterTeste.setTeste(teste);
+                            btJavaActionPerformed(evt);
+                        }
+                    });
+                }
+                if (teste.getNome().contains("algoritmo")) {
+                    this.btAlgoritmo.setEnabled(true);
+                    btJava.addActionListener(new java.awt.event.ActionListener() {
+                        public void actionPerformed(java.awt.event.ActionEvent evt) {
+                            manterTeste.setTeste(teste);
+                            btAlgoritmoActionPerformed(evt);
+                        }
+                    });
+                }
+
+//                System.out.println(teste.getNome());
+//                for (Pergunta pergunta : teste.getPerguntas()) {
+//                    System.out.println(pergunta.getDescricao());
+//                    for (Alternativa alternativa : pergunta.getAlternativas()) {
+//                        System.out.println(alternativa.getDescricao());
+//                    }
+//                }
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(pnlTestes.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -57,9 +106,9 @@ public class pnlTestes extends javax.swing.JPanel {
         };
         jLabel3 = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
+        btJava = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
-        jButton2 = new javax.swing.JButton();
+        btAlgoritmo = new javax.swing.JButton();
 
         jPanel1.setBackground(new java.awt.Color(0, 0, 102));
 
@@ -145,12 +194,8 @@ public class pnlTestes extends javax.swing.JPanel {
         jPanel4.setBackground(new java.awt.Color(255, 255, 255));
         jPanel4.setLayout(new java.awt.GridBagLayout());
 
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/imagem/javaLogo.png"))); // NOI18N
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
+        btJava.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/imagem/javaLogo.png"))); // NOI18N
+        btJava.setEnabled(false);
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 1;
@@ -158,7 +203,7 @@ public class pnlTestes extends javax.swing.JPanel {
         gridBagConstraints.ipady = 116;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.insets = new java.awt.Insets(18, 104, 66, 0);
-        jPanel4.add(jButton1, gridBagConstraints);
+        jPanel4.add(btJava, gridBagConstraints);
 
         jLabel4.setFont(new java.awt.Font("Dialog", 1, 36)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(10, 30, 128));
@@ -171,7 +216,8 @@ public class pnlTestes extends javax.swing.JPanel {
         gridBagConstraints.insets = new java.awt.Insets(44, 303, 0, 0);
         jPanel4.add(jLabel4, gridBagConstraints);
 
-        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/imagem/algoritmo.png"))); // NOI18N
+        btAlgoritmo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/imagem/algoritmo.png"))); // NOI18N
+        btAlgoritmo.setEnabled(false);
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 1;
@@ -180,7 +226,7 @@ public class pnlTestes extends javax.swing.JPanel {
         gridBagConstraints.ipady = 172;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.insets = new java.awt.Insets(18, 22, 66, 121);
-        jPanel4.add(jButton2, gridBagConstraints);
+        jPanel4.add(btAlgoritmo, gridBagConstraints);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -209,20 +255,24 @@ public class pnlTestes extends javax.swing.JPanel {
         pnlLogin pnl = new pnlLogin();
         FrmPrincipal.frmPrincipal.setContentPane(pnl);
         FrmPrincipal.frmPrincipal.setVisible(true);
-        
+
     }//GEN-LAST:event_lbSairMouseClicked
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
+    private void btJavaActionPerformed(java.awt.event.ActionEvent evt) {
         pnlJavaTeste pnl = new pnlJavaTeste();
         FrmPrincipal.frmPrincipal.setContentPane(pnl);
         FrmPrincipal.frmPrincipal.setVisible(true);
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }
 
+    private void btAlgoritmoActionPerformed(java.awt.event.ActionEvent evt) {
+        pnlJavaTeste pnl = new pnlJavaTeste();
+        FrmPrincipal.frmPrincipal.setContentPane(pnl);
+        FrmPrincipal.frmPrincipal.setVisible(true);
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
+    private javax.swing.JButton btAlgoritmo;
+    private javax.swing.JButton btJava;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

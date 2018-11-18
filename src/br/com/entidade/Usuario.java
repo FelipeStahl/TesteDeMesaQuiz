@@ -18,6 +18,7 @@ public class Usuario {
     private Boolean admin;
     private Integer pontos;
     private List<Pergunta> perguntas;
+    private Usuario_pergunta usuario_pergunta;
 
     public Integer getId() {
         return id;
@@ -65,6 +66,14 @@ public class Usuario {
 
     public void setPerguntas(List<Pergunta> perguntas) {
         this.perguntas = perguntas;
+    }
+
+    public Usuario_pergunta getUsuario_pergunta() {
+        return usuario_pergunta;
+    }
+
+    public void setUsuario_pergunta(Usuario_pergunta usuario_pergunta) {
+        this.usuario_pergunta = usuario_pergunta;
     }
     
 }

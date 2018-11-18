@@ -5,9 +5,17 @@
  */
 package br.com.view;
 
+import br.com.dao.impl.Usuario_perguntaDaoImpl;
+import br.com.entidade.Pergunta;
+import br.com.entidade.Teste;
+import br.com.entidade.Usuario_pergunta;
+import br.com.manter.manterTeste;
 import br.com.manter.manterUsuarioLogado;
 import java.awt.Graphics;
 import java.awt.Image;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 
 /**
@@ -16,6 +24,8 @@ import javax.swing.ImageIcon;
  */
 public class pnlJavaTeste extends javax.swing.JPanel {
 
+    Integer numBotao;
+
     /**
      * Creates new form pnlJavaTeste
      */
@@ -23,14 +33,28 @@ public class pnlJavaTeste extends javax.swing.JPanel {
         initComponents();
         lbUsuario.setText(manterUsuarioLogado.getUsuario().getNome());
         lbPontos.setText(manterUsuarioLogado.getUsuario().getPontos().toString());
-        
-        testeI++; //teste
-        addBotao(testeI, "Enviar objeto pergunta e fazer tratamento no Panel de Pergunta", false); //teste
+        numBotao = 0;
+        addPerguntas();
     }
 
-    private void addPerguntas(){
-        
+    private void addPerguntas() {
+        Teste teste = manterTeste.getTeste();
+        Boolean travado;
+        for (Pergunta pergunta : teste.getPerguntas()) {
+            travado = true;
+            if (numBotao.equals(0)) {                
+                travado = false;
+            }else{
+                if(pergunta.getUsuario_pergunta() != null){
+                    travado = false;
+                }
+            }
+            numBotao++;
+            addBotao(numBotao, pergunta, travado);
+        }
+        manterTeste.setNumPerguntaTotal(numBotao);
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -222,10 +246,9 @@ public class pnlJavaTeste extends javax.swing.JPanel {
         FrmPrincipal.frmPrincipal.setVisible(true);
 
     }//GEN-LAST:event_lbSairMouseClicked
-    private Integer testeI = 0; //teste
+
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        testeI++;
-        addBotao(testeI, "oi", true);
+
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jLabel5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel5MouseClicked
@@ -234,9 +257,8 @@ public class pnlJavaTeste extends javax.swing.JPanel {
         FrmPrincipal.frmPrincipal.setVisible(true);
     }//GEN-LAST:event_jLabel5MouseClicked
 
-    private void addBotao(Integer num, String pergunta, Boolean travado) {
-        java.awt.GridBagConstraints gridBagConstraints;
-
+    private void addBotao(Integer num, Pergunta pergunta, Boolean travado) {
+        java.awt.GridBagConstraints gridBagConstraints;       
         javax.swing.JButton botaoNivel = new javax.swing.JButton();
         botaoNivel.setFont(new java.awt.Font("Dialog", 1, 36)); // NOI18N
         if (travado) {
@@ -255,6 +277,7 @@ public class pnlJavaTeste extends javax.swing.JPanel {
         botaoNivel.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         botaoNivel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
+                manterTeste.setNumPerguntaAtual(num -1);
                 pnlJavaPergunta pnl = new pnlJavaPergunta(pergunta);
                 FrmPrincipal.frmPrincipal.setContentPane(pnl);
                 FrmPrincipal.frmPrincipal.setVisible(true);
@@ -267,6 +290,13 @@ public class pnlJavaTeste extends javax.swing.JPanel {
         } else {
             gridBagConstraints.gridx = 10;
             gridBagConstraints.gridy = (num / 10) - 1;
+        }
+        if(pergunta.getUsuario_pergunta() != null){
+            if(pergunta.getUsuario_pergunta().getCorreto()){
+                botaoNivel.setBackground(new java.awt.Color(51, 204, 0));             
+            }else{
+                botaoNivel.setBackground(new java.awt.Color(153, 0, 0));
+            }
         }
         jPanel4.add(botaoNivel, gridBagConstraints);
         this.repaint();

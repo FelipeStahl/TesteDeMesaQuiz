@@ -5,15 +5,24 @@
  */
 package br.com.dao.impl;
 
+import br.com.conexao.ConnectionFactory;
 import br.com.dao.TesteDao;
+import br.com.entidade.Pergunta;
+import br.com.entidade.Teste;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  *
  * @author Felipe-Sistema
  */
-public class TesteDaoImpl implements TesteDao{
+public class TesteDaoImpl implements TesteDao {
+
+    private Connection conexao;
 
     @Override
     public void salvar(Object object) throws SQLException {
@@ -37,7 +46,33 @@ public class TesteDaoImpl implements TesteDao{
 
     @Override
     public List listarTodos() throws SQLException {
+        try {
+            conexao = ConnectionFactory.getConnection();
+            PreparedStatement statement = conexao.prepareStatement("SELECT * FROM teste;");
+            ResultSet rs = statement.executeQuery();
+            List<Teste> testes = new ArrayList();
+            while (rs.next()) {
+                Teste teste = new Teste();
+                teste.setId(rs.getInt("id"));
+                teste.setNome(rs.getString("nome"));
+                PerguntaDaoImpl perguntaDao = new PerguntaDaoImpl();
+                String pesquisa = String.valueOf(rs.getInt("id"));
+                List<Pergunta> perguntas = perguntaDao.pesquisar(pesquisa);
+                teste.setPerguntas(perguntas);
+                testes.add(teste);
+            }
+            return testes;
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            conexao.close();
+        }
+        return null;
+    }
+
+    @Override
+    public List pesquisar(String pesquisa) throws SQLException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-    
+
 }
