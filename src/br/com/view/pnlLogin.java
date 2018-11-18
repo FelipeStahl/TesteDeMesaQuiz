@@ -149,7 +149,7 @@ public class pnlLogin extends javax.swing.JPanel {
         jPanel1.add(filler6, gridBagConstraints);
 
         jLabel6.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel6.setText("Desenvolvido por: Érick Miguel Costa, Felipe Stahlhofer e Robson Pfleger");
+        jLabel6.setText("Desenvolvido por: Felipe Stahlhofer. Está também no grupo: Érick Miguel Costa e Robson Pfleger");
         jLabel6.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;

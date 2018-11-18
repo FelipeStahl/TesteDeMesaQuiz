@@ -5,24 +5,16 @@
  */
 package br.com.dao.impl;
 
-import br.com.conexao.ConnectionFactory;
-import br.com.dao.PerguntaDao;
-import br.com.entidade.Pergunta;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
+import br.com.dao.AlternativaDao;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
  *
  * @author Felipe-Sistema
  */
-public class PerguntaDaoImpl implements PerguntaDao{
+public class AlternativaDaoImpl implements AlternativaDao{
 
-    private Connection conexao;
-    
     @Override
     public void salvar(Object object) throws SQLException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
@@ -45,26 +37,7 @@ public class PerguntaDaoImpl implements PerguntaDao{
 
     @Override
     public List listarTodos() throws SQLException {
-        try {
-            conexao = ConnectionFactory.getConnection();
-            PreparedStatement statement = conexao.prepareStatement("SELECT * FROM pergunta;");           
-            ResultSet rs = statement.executeQuery();
-            List<Pergunta> perguntas = new ArrayList();
-            while(rs.next()){
-                Pergunta pergunta = new Pergunta();
-                pergunta.setId(rs.getInt("id"));
-                pergunta.setDescricao(rs.getString("descricao"));
-                pergunta.setNivel(rs.getInt("nivel"));
-//                usuario.setNascimento(rs.getDate("nascimento"));
-//                usuarios.add(usuario);               
-            }
-            return perguntas;
-        } catch (Exception e) {
-            e.printStackTrace();
-        }finally{
-            conexao.close();
-        }
-        return null;
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
 }

@@ -223,7 +223,7 @@
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/br/com/imagem/senacMenor.png"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Desenvolvido pelos alunos: &#xc9;rick Miguel Costa, Felipe Stahlhofer e Robson Pfleger"/>
+            <Property name="text" type="java.lang.String" value="Desenvolvido por: Felipe Stahlhofer. Est&#xe1; no grupo: &#xc9;rick Miguel Costa e Robson Pfleger"/>
             <Property name="horizontalTextPosition" type="int" value="2"/>
           </Properties>
         </Component>

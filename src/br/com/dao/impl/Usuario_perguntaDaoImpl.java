@@ -6,7 +6,7 @@
 package br.com.dao.impl;
 
 import br.com.conexao.ConnectionFactory;
-import br.com.dao.PerguntaDao;
+import br.com.dao.Usuario_perguntaDao;
 import br.com.entidade.Pergunta;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -19,8 +19,7 @@ import java.util.List;
  *
  * @author Felipe-Sistema
  */
-public class PerguntaDaoImpl implements PerguntaDao{
-
+public class Usuario_perguntaDaoImpl implements Usuario_perguntaDao{
     private Connection conexao;
     
     @Override

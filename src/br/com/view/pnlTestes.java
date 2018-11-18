@@ -122,7 +122,7 @@ public class pnlTestes extends javax.swing.JPanel {
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/imagem/senacMenor.png"))); // NOI18N
-        jLabel3.setText("Desenvolvido pelos alunos: Érick Miguel Costa, Felipe Stahlhofer e Robson Pfleger");
+        jLabel3.setText("Desenvolvido por: Felipe Stahlhofer. Está no grupo: Érick Miguel Costa e Robson Pfleger");
         jLabel3.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
