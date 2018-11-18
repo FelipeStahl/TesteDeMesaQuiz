@@ -41,6 +41,7 @@ public class pnlLogin extends javax.swing.JPanel {
                 g.drawImage(bg, 0, 0, this.getSize().width, this.getSize().height, this);
             }
         };
+        filler7 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 10), new java.awt.Dimension(0, 10), new java.awt.Dimension(32767, 10));
         lbLogo = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
@@ -63,9 +64,13 @@ public class pnlLogin extends javax.swing.JPanel {
         setLayout(new javax.swing.OverlayLayout(this));
 
         jPanel1.setLayout(new java.awt.GridBagLayout());
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 7;
+        jPanel1.add(filler7, gridBagConstraints);
 
         lbLogo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lbLogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/teste de mesa logo.png"))); // NOI18N
+        lbLogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/imagem/teste de mesa logo.png"))); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 1;
@@ -134,7 +139,7 @@ public class pnlLogin extends javax.swing.JPanel {
         label1.setText("Desenvolvido pelos alunos: Érick com Acento, Felipe Staoijsdfojkmdsf, Robson Polegar.");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 7;
+        gridBagConstraints.gridy = 8;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.LAST_LINE_END;
         jPanel1.add(label1, gridBagConstraints);
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -150,7 +155,7 @@ public class pnlLogin extends javax.swing.JPanel {
         jPanel1.add(filler5, gridBagConstraints);
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 8;
+        gridBagConstraints.gridy = 9;
         jPanel1.add(filler6, gridBagConstraints);
 
         add(jPanel1);
@@ -158,7 +163,9 @@ public class pnlLogin extends javax.swing.JPanel {
 
     private void btEntrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btEntrarActionPerformed
         // TODO add your handling code here:
-
+        pnlTestes pnl = new pnlTestes();
+        FrmPrincipal.frmPrincipal.setContentPane(pnl);
+        FrmPrincipal.frmPrincipal.setVisible(true);
     }//GEN-LAST:event_btEntrarActionPerformed
 
 
@@ -171,6 +178,7 @@ public class pnlLogin extends javax.swing.JPanel {
     private javax.swing.Box.Filler filler4;
     private javax.swing.Box.Filler filler5;
     private javax.swing.Box.Filler filler6;
+    private javax.swing.Box.Filler filler7;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

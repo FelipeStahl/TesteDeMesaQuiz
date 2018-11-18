@@ -10,12 +10,13 @@ package br.com.view;
  * @author Felipe-Sistema
  */
 public class FrmPrincipal extends javax.swing.JFrame {
-
+    public static FrmPrincipal frmPrincipal;
     /**
      * Creates new form FrmPrincipal
      */
     public FrmPrincipal() {
         initComponents();
+        frmPrincipal = this;
         pnlLogin pnl = new pnlLogin();
         this.setContentPane(pnl);
         this.setVisible(true);
