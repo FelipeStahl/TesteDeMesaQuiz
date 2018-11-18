@@ -57,8 +57,8 @@ public class pnlJavaTeste extends javax.swing.JPanel {
         jLabel3 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         jPanel4 = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
+        jButton2 = new javax.swing.JButton();
 
         jPanel1.setBackground(new java.awt.Color(0, 0, 102));
 
@@ -96,7 +96,7 @@ public class pnlJavaTeste extends javax.swing.JPanel {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addGap(42, 42, 42)
                 .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 161, Short.MAX_VALUE)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 288, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
@@ -142,34 +142,17 @@ public class pnlJavaTeste extends javax.swing.JPanel {
         );
 
         jPanel4.setBackground(new java.awt.Color(255, 255, 255));
-
-        jButton1.setFont(new java.awt.Font("Dialog", 1, 36)); // NOI18N
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/imagem/descadeado.png"))); // NOI18N
-        jButton1.setText("1");
-        jButton1.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        jButton1.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
-        jButton1.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-
-        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
-        jPanel4.setLayout(jPanel4Layout);
-        jPanel4Layout.setHorizontalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel4Layout.createSequentialGroup()
-                .addGap(26, 26, 26)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(457, Short.MAX_VALUE))
-        );
-        jPanel4Layout.setVerticalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel4Layout.createSequentialGroup()
-                .addGap(20, 20, 20)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(255, Short.MAX_VALUE))
-        );
-
+        jPanel4.setLayout(new java.awt.GridBagLayout());
         jScrollPane2.setViewportView(jPanel4);
 
         jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/imagem/javaLogo.png"))); // NOI18N
+
+        jButton2.setText("add botao (teste)");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -178,9 +161,15 @@ public class pnlJavaTeste extends javax.swing.JPanel {
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(36, 36, 36)
-                .addComponent(jLabel4)
-                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(36, 36, 36)
+                        .addComponent(jLabel4)
+                        .addGap(18, 18, 18))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jButton2)
+                        .addGap(1, 1, 1)))
                 .addComponent(jScrollPane2)
                 .addContainerGap())
         );
@@ -193,7 +182,9 @@ public class pnlJavaTeste extends javax.swing.JPanel {
                     .addComponent(jScrollPane2)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel4)
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGap(34, 34, 34)
+                        .addComponent(jButton2)
+                        .addGap(0, 211, Short.MAX_VALUE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
@@ -206,10 +197,51 @@ public class pnlJavaTeste extends javax.swing.JPanel {
         FrmPrincipal.frmPrincipal.setVisible(true);
 
     }//GEN-LAST:event_lbSairMouseClicked
+    private Integer testeI = 0;
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+        testeI++;
+        addBotao(testeI, "oi", false);
+    }//GEN-LAST:event_jButton2ActionPerformed
 
+    private void addBotao(Integer num, String pergunta, Boolean travado) {
+        java.awt.GridBagConstraints gridBagConstraints;
+
+        javax.swing.JButton botaoNivel = new javax.swing.JButton();
+        botaoNivel.setFont(new java.awt.Font("Dialog", 1, 36)); // NOI18N
+        if (travado) {
+
+        } else {
+            botaoNivel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/imagem/descadeado.png"))); // NOI18N            
+        }
+        botaoNivel.setText(num.toString());
+        botaoNivel.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        botaoNivel.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
+        botaoNivel.setIconTextGap(25);
+        botaoNivel.setInheritsPopupMenu(true);
+        botaoNivel.setMinimumSize(new java.awt.Dimension(91, 63));
+        botaoNivel.setPreferredSize(new java.awt.Dimension(120, 80));
+        botaoNivel.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        botaoNivel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                //jButton1ActionPerformed(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        if (num % 10 != 0) {
+            gridBagConstraints.gridx = num % 10;
+            gridBagConstraints.gridy = num / 10;
+        } else {
+            gridBagConstraints.gridx = 10;
+            gridBagConstraints.gridy = (num / 10) - 1;
+        }
+        jPanel4.add(botaoNivel, gridBagConstraints);
+        this.repaint();
+        this.revalidate();
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
