@@ -390,7 +390,6 @@ public class pnlJavaPergunta extends javax.swing.JPanel {
         if (manterTeste.getNumPerguntaTotal() > num) {
             pnlJavaPergunta pnl = new pnlJavaPergunta(manterTeste.getTeste().getPerguntas().get(num));
             manterTeste.setNumPerguntaAtual(num);
-            manterTeste.setNumPerguntaAtual(PROPERTIES);
             FrmPrincipal.frmPrincipal.setContentPane(pnl);
             FrmPrincipal.frmPrincipal.setVisible(true);
         } else {

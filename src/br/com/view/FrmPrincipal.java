@@ -5,7 +5,12 @@
  */
 package br.com.view;
 
+import br.com.conexao.ConnectionFactory;
+import static br.com.conexao.ConnectionFactory.criarBd;
 import br.com.dao.impl.UsuarioDaoImpl;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -21,7 +26,18 @@ public class FrmPrincipal extends javax.swing.JFrame {
         frmPrincipal = this;
         pnlLogin pnl = new pnlLogin();
         this.setContentPane(pnl);
-        this.setVisible(true);       
+        this.setVisible(true);   
+        
+        try {
+            ConnectionFactory.getConnection();        
+        } catch (Exception ex) {
+            try {
+                criarBd();
+            } catch (Exception ex2) {
+                JOptionPane.showMessageDialog(null, "Erro de conexão com o banco de dados!\nVerifique se a senha de conexão com o banco está correta na classe ConnectionFactory.");
+                Logger.getLogger(FrmPrincipal.class.getName()).log(Level.SEVERE, null, ex2);
+            }
+        }
     }
 
     /**
