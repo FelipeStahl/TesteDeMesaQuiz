@@ -280,7 +280,7 @@
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="ff" green="ff" red="ff" type="rgb"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Desenvolvido por: Felipe Stahlhofer. Est&#xe1; tamb&#xe9;m no grupo: &#xc9;rick Miguel Costa e Robson Pfleger"/>
+            <Property name="text" type="java.lang.String" value="Desenvolvido por: Felipe Stahlhofer, &#xc9;rick Miguel Costa e Robson Pfleger"/>
             <Property name="horizontalTextPosition" type="int" value="4"/>
           </Properties>
           <Constraints>
