@@ -5,97 +5,102 @@ SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';
 
 -- -----------------------------------------------------
--- Schema TesteDeMesabd
+-- Schema mydb
+-- -----------------------------------------------------
+-- -----------------------------------------------------
+-- Schema testedemesabd
 -- -----------------------------------------------------
 
 -- -----------------------------------------------------
--- Schema TesteDeMesabd
+-- Schema testedemesabd
 -- -----------------------------------------------------
-CREATE SCHEMA IF NOT EXISTS `TesteDeMesabd` DEFAULT CHARACTER SET utf8 ;
-USE `TesteDeMesabd` ;
+CREATE SCHEMA IF NOT EXISTS `testedemesabd` DEFAULT CHARACTER SET utf8 ;
+USE `testedemesabd` ;
 
 -- -----------------------------------------------------
--- Table `TesteDeMesabd`.`usuario`
+-- Table `testedemesabd`.`teste`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `TesteDeMesabd`.`usuario` (
-  `id` INT NOT NULL AUTO_INCREMENT,
-  `nome` VARCHAR(45) NOT NULL,
-  `senha` VARCHAR(18) NOT NULL,
-  `admin` TINYINT NULL DEFAULT 0,
-  `pontos` INT NULL DEFAULT 0,
+CREATE TABLE IF NOT EXISTS `testedemesabd`.`teste` (
+  `id` INT(11) NOT NULL AUTO_INCREMENT,
+  `nome` VARCHAR(45) NULL DEFAULT NULL,
   PRIMARY KEY (`id`))
-ENGINE = InnoDB;
+ENGINE = InnoDB
+AUTO_INCREMENT = 3
+DEFAULT CHARACTER SET = utf8;
 
 
 -- -----------------------------------------------------
--- Table `TesteDeMesabd`.`teste`
+-- Table `testedemesabd`.`pergunta`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `TesteDeMesabd`.`teste` (
-  `id` INT NOT NULL AUTO_INCREMENT,
-  `nome` VARCHAR(45) NULL,
-  PRIMARY KEY (`id`))
-ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
--- Table `TesteDeMesabd`.`pergunta`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `TesteDeMesabd`.`pergunta` (
-  `id` INT NOT NULL AUTO_INCREMENT,
+CREATE TABLE IF NOT EXISTS `testedemesabd`.`pergunta` (
+  `id` INT(11) NOT NULL AUTO_INCREMENT,
   `descricao` LONGTEXT NOT NULL,
-  `nivel` INT NULL,
-  `teste_id` INT NOT NULL,
+  `nivel` INT(11) NULL DEFAULT NULL,
+  `teste_id` INT(11) NOT NULL,
   PRIMARY KEY (`id`),
   INDEX `fk_pergunta_teste1_idx` (`teste_id` ASC) VISIBLE,
   CONSTRAINT `fk_pergunta_teste1`
     FOREIGN KEY (`teste_id`)
-    REFERENCES `TesteDeMesabd`.`teste` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
+    REFERENCES `testedemesabd`.`teste` (`id`))
+ENGINE = InnoDB
+AUTO_INCREMENT = 10
+DEFAULT CHARACTER SET = utf8;
 
 
 -- -----------------------------------------------------
--- Table `TesteDeMesabd`.`usuario_pergunta`
+-- Table `testedemesabd`.`alternativa`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `TesteDeMesabd`.`usuario_pergunta` (
-  `id` INT NOT NULL AUTO_INCREMENT,
-  `correto` TINYINT NULL DEFAULT 0,
-  `dataResposta` DATETIME NULL,
-  `usuario_id` INT NOT NULL,
-  `pergunta_id` INT NOT NULL,
-  PRIMARY KEY (`id`),
-  INDEX `fk_usuario_pergunta_usuario_idx` (`usuario_id` ASC) VISIBLE,
-  INDEX `fk_usuario_pergunta_pergunta1_idx` (`pergunta_id` ASC) VISIBLE,
-  CONSTRAINT `fk_usuario_pergunta_usuario`
-    FOREIGN KEY (`usuario_id`)
-    REFERENCES `TesteDeMesabd`.`usuario` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_usuario_pergunta_pergunta1`
-    FOREIGN KEY (`pergunta_id`)
-    REFERENCES `TesteDeMesabd`.`pergunta` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
--- Table `TesteDeMesabd`.`alternativa`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `TesteDeMesabd`.`alternativa` (
-  `id` INT NOT NULL AUTO_INCREMENT,
+CREATE TABLE IF NOT EXISTS `testedemesabd`.`alternativa` (
+  `id` INT(11) NOT NULL AUTO_INCREMENT,
   `descricao` VARCHAR(100) NOT NULL,
-  `verdadeiro` TINYINT NULL DEFAULT 0,
-  `pergunta_id` INT NOT NULL,
+  `verdadeiro` TINYINT(4) NULL DEFAULT '0',
+  `pergunta_id` INT(11) NOT NULL,
   PRIMARY KEY (`id`),
   INDEX `fk_alternativas_pergunta1_idx` (`pergunta_id` ASC) VISIBLE,
   CONSTRAINT `fk_alternativas_pergunta1`
     FOREIGN KEY (`pergunta_id`)
-    REFERENCES `TesteDeMesabd`.`pergunta` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
+    REFERENCES `testedemesabd`.`pergunta` (`id`))
+ENGINE = InnoDB
+AUTO_INCREMENT = 32
+DEFAULT CHARACTER SET = utf8;
+
+
+-- -----------------------------------------------------
+-- Table `testedemesabd`.`usuario`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `testedemesabd`.`usuario` (
+  `id` INT(11) NOT NULL AUTO_INCREMENT,
+  `nome` VARCHAR(45) NOT NULL,
+  `senha` VARCHAR(18) NOT NULL,
+  `admin` TINYINT(4) NULL DEFAULT '0',
+  `pontos` INT(11) NULL DEFAULT '0',
+  PRIMARY KEY (`id`))
+ENGINE = InnoDB
+AUTO_INCREMENT = 4
+DEFAULT CHARACTER SET = utf8;
+
+
+-- -----------------------------------------------------
+-- Table `testedemesabd`.`usuario_pergunta`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `testedemesabd`.`usuario_pergunta` (
+  `id` INT(11) NOT NULL AUTO_INCREMENT,
+  `correto` TINYINT(4) NULL DEFAULT '0',
+  `dataResposta` DATETIME NULL DEFAULT NULL,
+  `usuario_id` INT(11) NOT NULL,
+  `pergunta_id` INT(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  INDEX `fk_usuario_pergunta_usuario_idx` (`usuario_id` ASC) VISIBLE,
+  INDEX `fk_usuario_pergunta_pergunta1_idx` (`pergunta_id` ASC) VISIBLE,
+  CONSTRAINT `fk_usuario_pergunta_pergunta1`
+    FOREIGN KEY (`pergunta_id`)
+    REFERENCES `testedemesabd`.`pergunta` (`id`),
+  CONSTRAINT `fk_usuario_pergunta_usuario`
+    FOREIGN KEY (`usuario_id`)
+    REFERENCES `testedemesabd`.`usuario` (`id`))
+ENGINE = InnoDB
+AUTO_INCREMENT = 17
+DEFAULT CHARACTER SET = utf8;
 
 
 SET SQL_MODE=@OLD_SQL_MODE;
