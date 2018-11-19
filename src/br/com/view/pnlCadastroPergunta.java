@@ -148,7 +148,7 @@ public class pnlCadastroPergunta extends javax.swing.JPanel {
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/imagem/senacMenor.png"))); // NOI18N
-        jLabel3.setText("Desenvolvido por: Felipe Stahlhofer. Está no grupo: Érick Miguel Costa e Robson Pfleger");
+        jLabel3.setText("Desenvolvido por: Felipe Stahlhofer, Érick Miguel Costa e Robson Pfleger");
         jLabel3.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -165,7 +165,7 @@ public class pnlCadastroPergunta extends javax.swing.JPanel {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel3)
-                .addContainerGap(10, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jPanel4.setBackground(new java.awt.Color(255, 255, 255));
@@ -364,10 +364,10 @@ public class pnlCadastroPergunta extends javax.swing.JPanel {
     private void btSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSalvarActionPerformed
         PerguntaDaoImpl perguntaDao = new PerguntaDaoImpl();
         AlternativaDaoImpl alternativaDao = new AlternativaDaoImpl();
-        if(epPergunta.getText().equals("")){
+        if (epPergunta.getText().equals("")) {
             JOptionPane.showMessageDialog(null, "Insira os dados do teste!");
             return;
-        }else if(txA.getText().equals("") || txB.getText().equals("") || txC.getText().equals("") || txD.getText().equals("")){
+        } else if (txA.getText().equals("") || txB.getText().equals("") || txC.getText().equals("") || txD.getText().equals("")) {
             JOptionPane.showMessageDialog(null, "Insira as respostas do teste!");
             return;
         }
@@ -404,10 +404,13 @@ public class pnlCadastroPergunta extends javax.swing.JPanel {
                     alternativas.add(alternativa);
                 }
                 JOptionPane.showMessageDialog(null, "Teste Cadastrado com sucesso!");
+                pnlJavaTeste pnl = new pnlJavaTeste();
+                FrmPrincipal.frmPrincipal.setContentPane(pnl);
+                FrmPrincipal.frmPrincipal.setVisible(true);
             } catch (SQLException ex) {
                 Logger.getLogger(pnlCadastroPergunta.class.getName()).log(Level.SEVERE, null, ex);
             }
-        }else{
+        } else {
             try {
                 pergunta = new Pergunta();
                 pergunta.setDescricao(epPergunta.getText());

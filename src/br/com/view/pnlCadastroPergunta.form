@@ -180,7 +180,7 @@
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace pref="10" max="32767" attributes="0"/>
+                  <EmptySpace max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -195,7 +195,7 @@
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/br/com/imagem/senacMenor.png"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Desenvolvido por: Felipe Stahlhofer. Est&#xe1; no grupo: &#xc9;rick Miguel Costa e Robson Pfleger"/>
+            <Property name="text" type="java.lang.String" value="Desenvolvido por: Felipe Stahlhofer, &#xc9;rick Miguel Costa e Robson Pfleger"/>
             <Property name="horizontalTextPosition" type="int" value="2"/>
           </Properties>
         </Component>
