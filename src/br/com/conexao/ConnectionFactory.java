@@ -20,13 +20,13 @@ public class ConnectionFactory {
 
     public static Connection getConnection() throws Exception {
         Class.forName("com.mysql.jdbc.Driver");
-        return DriverManager.getConnection("jdbc:mysql://localhost/testedemesabd", "root", "root");
+        return DriverManager.getConnection("jdbc:mysql://localhost/testedemesabd", "root", "");
     }
 
     public static void criarBd() throws Exception {
         Class.forName("com.mysql.jdbc.Driver");
         try {
-            conexao = DriverManager.getConnection("jdbc:mysql://localhost", "root", "root");
+            conexao = DriverManager.getConnection("jdbc:mysql://localhost", "root", "");
             PreparedStatement statement = conexao.prepareStatement("CREATE SCHEMA IF NOT EXISTS `testedemesabd` DEFAULT CHARACTER SET utf8 ;");
             statement.executeUpdate();
             criarTeste();
@@ -74,6 +74,7 @@ public class ConnectionFactory {
         }
     }
 
+    
     private static void criarPergunta() throws Exception {
         try {
             conexao = getConnection();
@@ -83,11 +84,31 @@ public class ConnectionFactory {
                     + "  `nivel` INT(11) NULL DEFAULT NULL,"
                     + "  `teste_id` INT(11) NOT NULL,"
                     + "  PRIMARY KEY (`id`),"
-                    + "  INDEX `fk_pergunta_teste1_idx` (`teste_id` ASC) VISIBLE,"
                     + "  CONSTRAINT `fk_pergunta_teste1`"
                     + "    FOREIGN KEY (`teste_id`)"
                     + "    REFERENCES `testedemesabd`.`teste` (`id`))"
-                    + "ENGINE = InnoDB AUTO_INCREMENT = 1 DEFAULT CHARACTER SET = utf8;");
+                    + "AUTO_INCREMENT = 1 DEFAULT CHARACTER SET = utf8;");
+            statement.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            conexao.close();
+        }
+    }
+    
+    private static void criarPerguntaOld() throws Exception {
+        try {
+            conexao = getConnection();
+            PreparedStatement statement = conexao.prepareStatement("CREATE TABLE IF NOT EXISTS `testedemesabd`.`pergunta` ("
+                    + "  `id` INT(11) NOT NULL AUTO_INCREMENT,"
+                    + "  `descricao` LONGTEXT NOT NULL,"
+                    + "  `nivel` INT(11) NULL DEFAULT NULL,"
+                    + "  `teste_id` INT(11) NOT NULL,"
+                    + "  PRIMARY KEY (`id`),"
+                    + "  CONSTRAINT `fk_pergunta_teste1`"
+                    + "    FOREIGN KEY (`teste_id`)"
+                    + "    REFERENCES `testedemesabd`.`teste` (`id`))"
+                    + "AUTO_INCREMENT = 1 DEFAULT CHARACTER SET = utf8;");
             statement.executeUpdate();
         } catch (Exception e) {
             e.printStackTrace();
@@ -105,11 +126,10 @@ public class ConnectionFactory {
                     + "  `verdadeiro` TINYINT(4) NULL DEFAULT '0',"
                     + "  `pergunta_id` INT(11) NOT NULL,"
                     + "  PRIMARY KEY (`id`),"
-                    + "  INDEX `fk_alternativas_pergunta1_idx` (`pergunta_id` ASC) VISIBLE,"
                     + "  CONSTRAINT `fk_alternativas_pergunta1`"
                     + "    FOREIGN KEY (`pergunta_id`)"
                     + "    REFERENCES `testedemesabd`.`pergunta` (`id`))"
-                    + "ENGINE = InnoDB AUTO_INCREMENT = 1 DEFAULT CHARACTER SET = utf8;");
+                    + "AUTO_INCREMENT = 1 DEFAULT CHARACTER SET = utf8;");
             statement.executeUpdate();
         } catch (Exception e) {
             e.printStackTrace();
@@ -128,7 +148,7 @@ public class ConnectionFactory {
                     + "  `admin` TINYINT(4) NULL DEFAULT '0',"
                     + "  `pontos` INT(11) NULL DEFAULT '0',"
                     + "  PRIMARY KEY (`id`))"
-                    + "ENGINE = InnoDB AUTO_INCREMENT = 1 DEFAULT CHARACTER SET = utf8;");
+                    + "AUTO_INCREMENT = 1 DEFAULT CHARACTER SET = utf8;");
             statement.executeUpdate();
         } catch (Exception e) {
             e.printStackTrace();
@@ -147,15 +167,13 @@ public class ConnectionFactory {
                     + "  `usuario_id` INT(11) NOT NULL,"
                     + "  `pergunta_id` INT(11) NOT NULL,"
                     + "  PRIMARY KEY (`id`),"
-                    + "  INDEX `fk_usuario_pergunta_usuario_idx` (`usuario_id` ASC) VISIBLE,"
-                    + "  INDEX `fk_usuario_pergunta_pergunta1_idx` (`pergunta_id` ASC) VISIBLE,"
                     + "  CONSTRAINT `fk_usuario_pergunta_pergunta1`"
                     + "    FOREIGN KEY (`pergunta_id`)"
                     + "    REFERENCES `testedemesabd`.`pergunta` (`id`),"
                     + "  CONSTRAINT `fk_usuario_pergunta_usuario`"
                     + "    FOREIGN KEY (`usuario_id`)"
                     + "    REFERENCES `testedemesabd`.`usuario` (`id`))"
-                    + "ENGINE = InnoDB AUTO_INCREMENT = 1 DEFAULT CHARACTER SET = utf8;");
+                    + "AUTO_INCREMENT = 1 DEFAULT CHARACTER SET = utf8;");
             statement.executeUpdate();
         } catch (Exception e) {
             e.printStackTrace();
