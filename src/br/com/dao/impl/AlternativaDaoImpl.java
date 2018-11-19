@@ -9,6 +9,7 @@ import br.com.conexao.ConnectionFactory;
 import br.com.dao.AlternativaDao;
 import br.com.entidade.Alternativa;
 import br.com.entidade.Pergunta;
+import com.mysql.jdbc.Statement;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -28,10 +29,40 @@ public class AlternativaDaoImpl implements AlternativaDao {
     public void salvar(Object object) throws SQLException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+    
+    public int salvarId(Object object) throws SQLException {
+        try {
+            Alternativa alternativa = (Alternativa)object;
+            conexao = ConnectionFactory.getConnection();
+            PreparedStatement statement = conexao.prepareStatement("insert into alternativa (descricao, pergunta_id, verdadeiro) values (?, ?, ?);", Statement.RETURN_GENERATED_KEYS);
+            
+            statement.setString(1, alternativa.getDescricao());
+            statement.setInt(2, alternativa.getPergunta().getId());      
+            statement.setBoolean(3, alternativa.getVerdadeiro());      
+            return statement.executeUpdate();
+        } catch (Exception e) {
+            return 0;
+        }finally{
+            conexao.close();
+        }
+    }
 
     @Override
     public void alterar(Object object) throws SQLException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        try {
+            Alternativa alternativa = (Alternativa)object;
+            conexao = ConnectionFactory.getConnection();
+            PreparedStatement statement = conexao.prepareStatement("update alternativa set descricao = ?, verdadeiro = ? where id = ?;", Statement.RETURN_GENERATED_KEYS);
+            
+            statement.setString(1, alternativa.getDescricao());
+            statement.setBoolean(2, alternativa.getVerdadeiro());
+            statement.setInt(3, alternativa.getId());      
+            statement.executeUpdate();                     
+        } catch (Exception e) {
+            e.printStackTrace();
+        }finally{
+            conexao.close();
+        }
     }
 
     @Override

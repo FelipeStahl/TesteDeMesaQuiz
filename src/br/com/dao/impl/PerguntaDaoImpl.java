@@ -10,6 +10,8 @@ import br.com.dao.PerguntaDao;
 import br.com.entidade.Alternativa;
 import br.com.entidade.Pergunta;
 import br.com.entidade.Usuario_pergunta;
+import br.com.manter.manterTeste;
+import com.mysql.jdbc.Statement;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -27,12 +29,62 @@ public class PerguntaDaoImpl implements PerguntaDao{
     
     @Override
     public void salvar(Object object) throws SQLException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        try {
+            Pergunta pergunta = (Pergunta)object;
+            conexao = ConnectionFactory.getConnection();
+            PreparedStatement statement = conexao.prepareStatement("insert into pergunta (descricao, nivel, teste_id) values (?, ?, ?);", Statement.RETURN_GENERATED_KEYS);
+            
+            statement.setString(1, pergunta.getDescricao());
+            statement.setInt(2, pergunta.getNivel());
+            statement.setInt(3, manterTeste.getTeste().getId());
+            statement.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }finally{
+            conexao.close();
+        }
+    }
+    
+    public int salvarId(Object object) throws SQLException {
+        try {
+            Pergunta pergunta = (Pergunta)object;
+            conexao = ConnectionFactory.getConnection();
+            PreparedStatement statement = conexao.prepareStatement("insert into pergunta (descricao, nivel, teste_id) values (?, ?, ?);", Statement.RETURN_GENERATED_KEYS);
+            
+            statement.setString(1, pergunta.getDescricao());
+            statement.setInt(2, pergunta.getNivel());
+            statement.setInt(3, manterTeste.getTeste().getId()); 
+            statement.executeUpdate();
+            ResultSet rs = statement.getGeneratedKeys();
+                if(rs.next())
+                {
+                    int ultimoId = rs.getInt(1);
+                    System.out.println(ultimoId);
+                    return ultimoId;
+                }
+                return 0;
+        } catch (Exception e) {
+            return 0;
+        }finally{
+            conexao.close();
+        }
     }
 
     @Override
     public void alterar(Object object) throws SQLException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        try {
+            Pergunta pergunta = (Pergunta)object;
+            conexao = ConnectionFactory.getConnection();
+            PreparedStatement statement = conexao.prepareStatement("update pergunta set descricao = ?, nivel = ? where id = ?;", Statement.RETURN_GENERATED_KEYS);           
+            statement.setString(1, pergunta.getDescricao());
+            statement.setInt(2, pergunta.getNivel());
+            statement.setInt(3, pergunta.getId());
+            statement.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }finally{
+            conexao.close();
+        }
     }
 
     @Override

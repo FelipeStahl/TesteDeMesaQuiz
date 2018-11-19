@@ -34,7 +34,7 @@ public class pnlJavaTeste extends javax.swing.JPanel {
         initComponents();
         TesteDaoImpl testeDao = new TesteDaoImpl();
         try {
-            manterTeste.setTeste((Teste)testeDao.pesquisarPorId(manterTeste.getTeste().getId()));
+            manterTeste.setTeste((Teste) testeDao.pesquisarPorId(manterTeste.getTeste().getId()));
         } catch (SQLException ex) {
             Logger.getLogger(pnlJavaTeste.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -42,10 +42,10 @@ public class pnlJavaTeste extends javax.swing.JPanel {
         lbPontos.setText(manterUsuarioLogado.getUsuario().getPontos().toString());
         numBotao = 0;
         addPerguntas();
-        if(manterUsuarioLogado.getUsuario().getAdmin()){
+        if (manterUsuarioLogado.getUsuario().getAdmin()) {
             btAddPergunta.setVisible(true);
-        }else{
-            btAddPergunta.setVisible(false);           
+        } else {
+            btAddPergunta.setVisible(false);
         }
     }
 
@@ -54,12 +54,12 @@ public class pnlJavaTeste extends javax.swing.JPanel {
         Boolean travado;
         Boolean ultimo = true;
         for (Pergunta pergunta : teste.getPerguntas()) {
-            if(ultimo){
-                if(pergunta.getUsuario_pergunta() == null){                   
+            if (ultimo) {
+                if (pergunta.getUsuario_pergunta() == null) {
                     ultimo = false;
                 }
                 travado = false;
-            }else{
+            } else {
                 travado = true;
             }
             numBotao++;
@@ -250,7 +250,6 @@ public class pnlJavaTeste extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void lbSairMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbSairMouseClicked
-        // TODO add your handling code here:
         pnlLogin pnl = new pnlLogin();
         FrmPrincipal.frmPrincipal.setContentPane(pnl);
         FrmPrincipal.frmPrincipal.setVisible(true);
@@ -258,7 +257,9 @@ public class pnlJavaTeste extends javax.swing.JPanel {
     }//GEN-LAST:event_lbSairMouseClicked
 
     private void btAddPerguntaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAddPerguntaActionPerformed
-
+        pnlCadastroPergunta pnl = new pnlCadastroPergunta();
+        FrmPrincipal.frmPrincipal.setContentPane(pnl);
+        FrmPrincipal.frmPrincipal.setVisible(true);
     }//GEN-LAST:event_btAddPerguntaActionPerformed
 
     private void jLabel5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel5MouseClicked
@@ -268,7 +269,7 @@ public class pnlJavaTeste extends javax.swing.JPanel {
     }//GEN-LAST:event_jLabel5MouseClicked
 
     private void addBotao(Integer num, Pergunta pergunta, Boolean travado) {
-        java.awt.GridBagConstraints gridBagConstraints;       
+        java.awt.GridBagConstraints gridBagConstraints;
         javax.swing.JButton botaoNivel = new javax.swing.JButton();
         botaoNivel.setFont(new java.awt.Font("Dialog", 1, 36)); // NOI18N
         if (travado) {
@@ -287,7 +288,7 @@ public class pnlJavaTeste extends javax.swing.JPanel {
         botaoNivel.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         botaoNivel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                manterTeste.setNumPerguntaAtual(num -1);
+                manterTeste.setNumPerguntaAtual(num - 1);
                 pnlJavaPergunta pnl = new pnlJavaPergunta(pergunta);
                 FrmPrincipal.frmPrincipal.setContentPane(pnl);
                 FrmPrincipal.frmPrincipal.setVisible(true);
@@ -301,10 +302,10 @@ public class pnlJavaTeste extends javax.swing.JPanel {
             gridBagConstraints.gridx = 10;
             gridBagConstraints.gridy = (num / 10) - 1;
         }
-        if(pergunta.getUsuario_pergunta() != null){
-            if(pergunta.getUsuario_pergunta().getCorreto()){
-                botaoNivel.setBackground(new java.awt.Color(51, 204, 0));             
-            }else{
+        if (pergunta.getUsuario_pergunta() != null) {
+            if (pergunta.getUsuario_pergunta().getCorreto()) {
+                botaoNivel.setBackground(new java.awt.Color(51, 204, 0));
+            } else {
                 botaoNivel.setBackground(new java.awt.Color(153, 0, 0));
             }
         }
