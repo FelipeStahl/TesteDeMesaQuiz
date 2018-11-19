@@ -89,7 +89,7 @@ public class pnlJavaPergunta extends javax.swing.JPanel {
             }
             numAlternativa++;
         }
-        if(pergunta.getUsuario_pergunta() != null){
+        if (pergunta.getUsuario_pergunta() != null) {
             lbProximo.setEnabled(true);
             btCorreto.setBackground(new java.awt.Color(51, 204, 0));
         }
@@ -105,6 +105,7 @@ public class pnlJavaPergunta extends javax.swing.JPanel {
             usuario_pergunta.setCorreto(acertou);
             try {
                 usuario_perguntaDao.salvar(usuario_pergunta);
+                perguntaAtual.setUsuario_pergunta(usuario_pergunta);
             } catch (SQLException ex) {
                 Logger.getLogger(pnlJavaTeste.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -393,7 +394,9 @@ public class pnlJavaPergunta extends javax.swing.JPanel {
             FrmPrincipal.frmPrincipal.setContentPane(pnl);
             FrmPrincipal.frmPrincipal.setVisible(true);
         } else {
-            lbProximo.setEnabled(false);
+            pnlJavaTeste pnl = new pnlJavaTeste();
+            FrmPrincipal.frmPrincipal.setContentPane(pnl);
+            FrmPrincipal.frmPrincipal.setVisible(true);
         }
     }//GEN-LAST:event_lbProximoMouseClicked
 

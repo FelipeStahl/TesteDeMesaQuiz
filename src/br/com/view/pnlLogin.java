@@ -198,18 +198,22 @@ public class pnlLogin extends javax.swing.JPanel {
         Usuario usuario;
         UsuarioDaoImpl usuariodao = new UsuarioDaoImpl();
         String passText = new String(txSenha.getPassword());
-        if (txLogin.getText().equals("") || passText.equals("")) {
+        passText = passText.trim();
+        String login = txLogin.getText().trim();
+        txLogin.setText(login);
+        txSenha.setText(passText);
+        if (login.equals("") || passText.equals("")) {
             criarAviso("Usuario e/ou senha incorretos.");
             this.txSenha.setText("");
             this.repaint();
             this.revalidate();
             return;
         }
-        if (usuariodao.usuarioExistente(this.txLogin.getText())) {
+        if (usuariodao.usuarioExistente(login)) {
             JOptionPane.showMessageDialog(null, "Usuario já cadastrado!");
         } else {
             usuario = new Usuario();
-            usuario.setNome(txLogin.getText());
+            usuario.setNome(login);
             usuario.setSenha(passText);
             try {
                 usuariodao.salvar(usuario);
