@@ -41,7 +41,27 @@ public class TesteDaoImpl implements TesteDao {
 
     @Override
     public Object pesquisarPorId(Integer id) throws SQLException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        try {
+            conexao = ConnectionFactory.getConnection();
+            PreparedStatement statement = conexao.prepareStatement("SELECT * FROM teste WHERE id = ?;");           
+            statement.setInt(1, id);
+            ResultSet rs = statement.executeQuery();
+            while(rs.next()){
+                Teste teste = new Teste();
+                teste.setId(rs.getInt("id"));
+                teste.setNome(rs.getString("nome"));
+                PerguntaDaoImpl perguntaDao = new PerguntaDaoImpl();
+                String pesquisa = String.valueOf(rs.getInt("id"));
+                List<Pergunta> perguntas = perguntaDao.pesquisar(pesquisa);
+                teste.setPerguntas(perguntas);
+                return teste;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }finally{
+            conexao.close();
+        }
+        return null;
     }
 
     @Override

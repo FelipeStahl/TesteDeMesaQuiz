@@ -35,9 +35,10 @@ public class Usuario_perguntaDaoImpl implements Usuario_perguntaDao {
             
             conexao = ConnectionFactory.getConnection();
             //NamedParameterStatement p = new NamedParameterStatement();
-            PreparedStatement statement = conexao.prepareStatement("insert into usuario_pergunta (usuario_id, pergunta_id) values (?, ?);", Statement.RETURN_GENERATED_KEYS);           
+            PreparedStatement statement = conexao.prepareStatement("insert into usuario_pergunta (usuario_id, pergunta_id, correto) values (?, ?, ?);", Statement.RETURN_GENERATED_KEYS);           
             statement.setInt(1, usuario_pergunta.getUsuario().getId());
             statement.setInt(2, usuario_pergunta.getPergunta().getId());
+            statement.setBoolean(3, usuario_pergunta.getCorreto());
             statement.executeUpdate();
             //System.out.println(executeUpdate);
         } catch (Exception e) {
@@ -49,7 +50,6 @@ public class Usuario_perguntaDaoImpl implements Usuario_perguntaDao {
 
     @Override
     public void alterar(Object object) throws SQLException {
-         int executeUpdate = 0;
         try {
             Usuario_pergunta usuario_pergunta = (Usuario_pergunta)object;
             
@@ -58,14 +58,11 @@ public class Usuario_perguntaDaoImpl implements Usuario_perguntaDao {
             PreparedStatement statement = conexao.prepareStatement("update usuario_pergunta set correto = ? where pergunta_id = ?;", Statement.RETURN_GENERATED_KEYS);           
             statement.setBoolean(1, usuario_pergunta.getCorreto());
             statement.setInt(2, usuario_pergunta.getPergunta().getId());
-            executeUpdate = statement.executeUpdate();           
+            statement.executeUpdate();           
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e.getMessage());
         }finally{
             conexao.close();
-            if(executeUpdate == 0){
-                salvar(object);
-            }
         }       
     }
 

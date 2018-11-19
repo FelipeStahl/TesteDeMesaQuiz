@@ -13,4 +13,6 @@ import br.com.entidade.Usuario;
  */
 public interface UsuarioDao extends BaseDao{
     Usuario validarLogin(String usuario, String senha);
+    
+    Boolean usuarioExistente(String usuario);
 }

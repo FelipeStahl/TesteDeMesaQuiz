@@ -10,6 +10,9 @@ import br.com.entidade.Usuario;
 import br.com.manter.manterUsuarioLogado;
 import java.awt.Graphics;
 import java.awt.Image;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
@@ -103,6 +106,11 @@ public class pnlLogin extends javax.swing.JPanel {
         jPanel2.add(btEntrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 150, 90, -1));
 
         btCadastrar.setText("Cadastrar");
+        btCadastrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btCadastrarActionPerformed(evt);
+            }
+        });
         jPanel2.add(btCadastrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 150, -1, -1));
 
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/imagem/loginbg.png"))); // NOI18N
@@ -185,6 +193,32 @@ public class pnlLogin extends javax.swing.JPanel {
             this.revalidate();
         }
     }//GEN-LAST:event_btEntrarActionPerformed
+
+    private void btCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btCadastrarActionPerformed
+        Usuario usuario;
+        UsuarioDaoImpl usuariodao = new UsuarioDaoImpl();
+        String passText = new String(txSenha.getPassword());
+        if (txLogin.getText().equals("") || passText.equals("")) {
+            criarAviso("Usuario e/ou senha incorretos.");
+            this.txSenha.setText("");
+            this.repaint();
+            this.revalidate();
+            return;
+        }
+        if (usuariodao.usuarioExistente(this.txLogin.getText())) {
+            JOptionPane.showMessageDialog(null, "Usuario já cadastrado!");
+        } else {
+            usuario = new Usuario();
+            usuario.setNome(txLogin.getText());
+            usuario.setSenha(passText);
+            try {
+                usuariodao.salvar(usuario);
+                JOptionPane.showMessageDialog(null, "Usuário cadastrado com sucesso!\nClique em entrar.");
+            } catch (SQLException ex) {
+                Logger.getLogger(pnlLogin.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }//GEN-LAST:event_btCadastrarActionPerformed
 
     private void criarAviso(String aviso) {
         javax.swing.JLabel lbAviso;

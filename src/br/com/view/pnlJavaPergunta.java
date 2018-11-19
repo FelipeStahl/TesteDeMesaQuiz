@@ -5,6 +5,7 @@
  */
 package br.com.view;
 
+import br.com.dao.impl.UsuarioDaoImpl;
 import br.com.dao.impl.Usuario_perguntaDaoImpl;
 import br.com.entidade.Alternativa;
 import br.com.entidade.Pergunta;
@@ -112,11 +113,18 @@ public class pnlJavaPergunta extends javax.swing.JPanel {
                 botao.setBackground(new java.awt.Color(51, 204, 0));
                 Integer pontos = manterUsuarioLogado.getUsuario().getPontos() + 10;
                 manterUsuarioLogado.getUsuario().setPontos(pontos);
+                UsuarioDaoImpl usuarioDao = new UsuarioDaoImpl();
+                try {
+                    usuarioDao.alterar(manterUsuarioLogado.getUsuario());
+                } catch (SQLException ex) {
+                    Logger.getLogger(pnlJavaPergunta.class.getName()).log(Level.SEVERE, null, ex);
+                }
             } else {
                 botao.setBackground(new java.awt.Color(153, 0, 0));
                 btCorreto.setBackground(new java.awt.Color(51, 204, 0));
             }
         }
+        lbProximo.setEnabled(true);
     }
 
     /**

@@ -5,6 +5,7 @@
  */
 package br.com.view;
 
+import br.com.dao.impl.TesteDaoImpl;
 import br.com.dao.impl.Usuario_perguntaDaoImpl;
 import br.com.entidade.Pergunta;
 import br.com.entidade.Teste;
@@ -31,23 +32,35 @@ public class pnlJavaTeste extends javax.swing.JPanel {
      */
     public pnlJavaTeste() {
         initComponents();
+        TesteDaoImpl testeDao = new TesteDaoImpl();
+        try {
+            manterTeste.setTeste((Teste)testeDao.pesquisarPorId(manterTeste.getTeste().getId()));
+        } catch (SQLException ex) {
+            Logger.getLogger(pnlJavaTeste.class.getName()).log(Level.SEVERE, null, ex);
+        }
         lbUsuario.setText(manterUsuarioLogado.getUsuario().getNome());
         lbPontos.setText(manterUsuarioLogado.getUsuario().getPontos().toString());
         numBotao = 0;
         addPerguntas();
+        if(manterUsuarioLogado.getUsuario().getAdmin()){
+            btAddPergunta.setVisible(true);
+        }else{
+            btAddPergunta.setVisible(false);           
+        }
     }
 
     private void addPerguntas() {
         Teste teste = manterTeste.getTeste();
         Boolean travado;
+        Boolean ultimo = true;
         for (Pergunta pergunta : teste.getPerguntas()) {
-            travado = true;
-            if (numBotao.equals(0)) {                
+            if(ultimo){
+                if(pergunta.getUsuario_pergunta() == null){                   
+                    ultimo = false;
+                }
                 travado = false;
             }else{
-                if(pergunta.getUsuario_pergunta() != null){
-                    travado = false;
-                }
+                travado = true;
             }
             numBotao++;
             addBotao(numBotao, pergunta, travado);
@@ -90,7 +103,7 @@ public class pnlJavaTeste extends javax.swing.JPanel {
         jScrollPane2 = new javax.swing.JScrollPane();
         jPanel4 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
-        jButton2 = new javax.swing.JButton();
+        btAddPergunta = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
 
         jPanel1.setBackground(new java.awt.Color(0, 0, 102));
@@ -180,10 +193,10 @@ public class pnlJavaTeste extends javax.swing.JPanel {
 
         jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/imagem/javaLogo.png"))); // NOI18N
 
-        jButton2.setText("add botao (teste)");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        btAddPergunta.setText("Adicionar Pergunta");
+        btAddPergunta.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                btAddPerguntaActionPerformed(evt);
             }
         });
 
@@ -204,20 +217,17 @@ public class pnlJavaTeste extends javax.swing.JPanel {
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jButton2)
+                        .addComponent(btAddPergunta)
                         .addGap(1, 1, 1))
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(36, 36, 36)
-                                .addComponent(jLabel4))
-                            .addGroup(layout.createSequentialGroup()
-                                .addContainerGap()
-                                .addComponent(jLabel5)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
+                        .addComponent(jLabel5)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jLabel4)
+                        .addGap(50, 50, 50)))
                 .addComponent(jScrollPane2)
                 .addContainerGap())
         );
@@ -230,9 +240,9 @@ public class pnlJavaTeste extends javax.swing.JPanel {
                     .addComponent(jScrollPane2)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel4)
-                        .addGap(34, 34, 34)
-                        .addComponent(jButton2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 170, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btAddPergunta, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 176, Short.MAX_VALUE)
                         .addComponent(jLabel5)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -247,9 +257,9 @@ public class pnlJavaTeste extends javax.swing.JPanel {
 
     }//GEN-LAST:event_lbSairMouseClicked
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void btAddPerguntaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAddPerguntaActionPerformed
 
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_btAddPerguntaActionPerformed
 
     private void jLabel5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel5MouseClicked
         pnlTestes pnl = new pnlTestes();
@@ -304,7 +314,7 @@ public class pnlJavaTeste extends javax.swing.JPanel {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton2;
+    private javax.swing.JButton btAddPergunta;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
