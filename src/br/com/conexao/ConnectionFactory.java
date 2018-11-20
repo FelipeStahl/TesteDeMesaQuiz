@@ -21,6 +21,10 @@ public class ConnectionFactory {
     public static Connection getConnection() throws Exception {
         Class.forName("com.mysql.jdbc.Driver");
         return DriverManager.getConnection("jdbc:mysql://localhost/testedemesabd", "root", "");
+        /* Se quiser conectar ao banco de outra pessoa, inicie o apache pelo xampp, clique em "admin" -> phpMyAdmin, vá em usuarios, crie um usuario root@%, e de todas as permissoes
+            ai o usuario esta pronto pra ser usado por qualquer ip. Ai bote no link ali em cima pelo ip e porta do banco de dados, e bote o usuario e senha que vc criou
+            No caso de conectar meu pc com o banco de dados do robson ficou "return DriverManager.getConnection("jdbc:mysql://192.168.109.19:3306/testedemesabd", "root", "root");"
+        */
     }
 
     public static void criarBd() throws Exception {
