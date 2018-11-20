@@ -388,16 +388,18 @@ public class pnlJavaPergunta extends javax.swing.JPanel {
     }//GEN-LAST:event_jLabel5MouseClicked
 
     private void lbProximoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbProximoMouseClicked
-        Integer num = manterTeste.getNumPerguntaAtual() + 1;
-        if (manterTeste.getNumPerguntaTotal() > num) {
-            pnlJavaPergunta pnl = new pnlJavaPergunta(manterTeste.getTeste().getPerguntas().get(num));
-            manterTeste.setNumPerguntaAtual(num);
-            FrmPrincipal.frmPrincipal.setContentPane(pnl);
-            FrmPrincipal.frmPrincipal.setVisible(true);
-        } else {
-            pnlJavaTeste pnl = new pnlJavaTeste();
-            FrmPrincipal.frmPrincipal.setContentPane(pnl);
-            FrmPrincipal.frmPrincipal.setVisible(true);
+        if (this.lbProximo.isEnabled()) {
+            Integer num = manterTeste.getNumPerguntaAtual() + 1;
+            if (manterTeste.getNumPerguntaTotal() > num) {
+                pnlJavaPergunta pnl = new pnlJavaPergunta(manterTeste.getTeste().getPerguntas().get(num));
+                manterTeste.setNumPerguntaAtual(num);
+                FrmPrincipal.frmPrincipal.setContentPane(pnl);
+                FrmPrincipal.frmPrincipal.setVisible(true);
+            } else {
+                pnlJavaTeste pnl = new pnlJavaTeste();
+                FrmPrincipal.frmPrincipal.setContentPane(pnl);
+                FrmPrincipal.frmPrincipal.setVisible(true);
+            }
         }
     }//GEN-LAST:event_lbProximoMouseClicked
 
